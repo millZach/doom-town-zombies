@@ -1,0 +1,1443 @@
+{
+ "sampleRate": 44100,
+ "sounds": {
+  "ads_in": {
+   "files": [
+    "handling/ads_in_1.ogg",
+    "handling/ads_in_2.ogg",
+    "handling/ads_in_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "Kenney RPG Audio"
+  },
+  "ads_out": {
+   "files": [
+    "handling/ads_out_1.ogg",
+    "handling/ads_out_2.ogg",
+    "handling/ads_out_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "Kenney RPG Audio"
+  },
+  "ambient_loop": {
+   "bus": "ambient",
+   "files": [
+    "world/ambient_loop.ogg"
+   ],
+   "gain": 1.0,
+   "loop": true,
+   "src": "OGA wind + dark ambiences"
+  },
+  "board_repair": {
+   "files": [
+    "foley/board_repair_1.ogg",
+    "foley/board_repair_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 60,
+   "rateJit": 0.05,
+   "src": "OGA 100 CC0 metal & wood SFX"
+  },
+  "board_slam": {
+   "files": [
+    "foley/board_slam_1.ogg",
+    "foley/board_slam_2.ogg",
+    "foley/board_slam_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 60,
+   "rateJit": 0.05,
+   "src": "Kenney Impact Sounds"
+  },
+  "board_tear": {
+   "files": [
+    "foley/board_tear_1.ogg",
+    "foley/board_tear_2.ogg",
+    "foley/board_tear_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 60,
+   "rateJit": 0.05,
+   "src": "OGA 100 CC0 metal & wood SFX"
+  },
+  "bolt_pull": {
+   "files": [
+    "handling/bolt_pull_1.ogg",
+    "handling/bolt_pull_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA equipment clicks"
+  },
+  "bolt_release": {
+   "files": [
+    "handling/bolt_release_1.ogg",
+    "handling/bolt_release_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA equipment clicks"
+  },
+  "box_close": {
+   "files": [
+    "foley/box_close.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "src": "OGA 100 CC0 metal & wood SFX"
+  },
+  "box_music": {
+   "bus": "music",
+   "files": [
+    "music/box_music.ogg"
+   ],
+   "gain": 1.0,
+   "src": "ElevenLabs box_music"
+  },
+  "box_open": {
+   "files": [
+    "foley/box_open.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "src": "OGA 100 CC0 SFX"
+  },
+  "box_teddy": {
+   "files": [
+    "world/box_teddy.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "src": "ElevenLabs box_teddy"
+  },
+  "carpenter": {
+   "bus": "ui",
+   "files": [
+    "world/carpenter.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "src": "Kenney Digital Audio"
+  },
+  "door_open": {
+   "files": [
+    "foley/door_open_1.ogg",
+    "foley/door_open_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 40,
+   "rateJit": 0.02,
+   "src": "OGA door SFX"
+  },
+  "double_points": {
+   "bus": "ui",
+   "files": [
+    "world/double_points.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "src": "Kenney Digital Audio"
+  },
+  "dry_fire": {
+   "files": [
+    "handling/dry_fire_1.ogg",
+    "handling/dry_fire_2.ogg",
+    "handling/dry_fire_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA gun lock click"
+  },
+  "explosion": {
+   "files": [
+    "guns/explosion_1.ogg",
+    "guns/explosion_2.ogg",
+    "guns/explosion_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 50,
+   "rateJit": 0.04,
+   "send": "boom",
+   "sendAmt": 0.4,
+   "src": "ElevenLabs + OGA explosions"
+  },
+  "fire_loop": {
+   "bus": "ambient",
+   "files": [
+    "world/fire_loop.ogg"
+   ],
+   "gain": 1.0,
+   "loop": true,
+   "src": "OGA fire crackling"
+  },
+  "fire_sale": {
+   "bus": "ui",
+   "files": [
+    "world/fire_sale.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "src": "Kenney Digital Audio"
+  },
+  "flesh_hit": {
+   "files": [
+    "impacts/flesh_hit_1.ogg",
+    "impacts/flesh_hit_2.ogg",
+    "impacts/flesh_hit_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 60,
+   "rateJit": 0.05,
+   "src": "Kenney Impact Sounds"
+  },
+  "footstep_concrete": {
+   "files": [
+    "foley/footstep_concrete_1.ogg",
+    "foley/footstep_concrete_2.ogg",
+    "foley/footstep_concrete_3.ogg",
+    "foley/footstep_concrete_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 90,
+   "rateJit": 0.07,
+   "src": "Kenney Impact Sounds + OGA Different Steps"
+  },
+  "footstep_dirt": {
+   "files": [
+    "foley/footstep_dirt_1.ogg",
+    "foley/footstep_dirt_2.ogg",
+    "foley/footstep_dirt_3.ogg",
+    "foley/footstep_dirt_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 90,
+   "rateJit": 0.07,
+   "src": "Kenney Impact Sounds + OGA Different Steps"
+  },
+  "footstep_wood": {
+   "files": [
+    "foley/footstep_wood_1.ogg",
+    "foley/footstep_wood_2.ogg",
+    "foley/footstep_wood_3.ogg",
+    "foley/footstep_wood_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 90,
+   "rateJit": 0.07,
+   "src": "Kenney Impact Sounds + OGA Different Steps"
+  },
+  "game_over": {
+   "bus": "music",
+   "files": [
+    "stingers/game_over.ogg"
+   ],
+   "gain": 1.0,
+   "src": "ElevenLabs sting + VCSL organ/bell/gong/timpani"
+  },
+  "grenade_bounce": {
+   "files": [
+    "handling/grenade_bounce_1.ogg",
+    "handling/grenade_bounce_2.ogg",
+    "handling/grenade_bounce_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 80,
+   "rateJit": 0.07,
+   "src": "OGA 100 CC0 metal & wood SFX"
+  },
+  "grenade_pin": {
+   "files": [
+    "handling/grenade_pin_1.ogg",
+    "handling/grenade_pin_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 50,
+   "rateJit": 0.02,
+   "src": "OGA 100 CC0 metal & wood SFX"
+  },
+  "gun_ak74u": {
+   "files": [
+    "guns/gun_ak74u_1.ogg",
+    "guns/gun_ak74u_2.ogg",
+    "guns/gun_ak74u_3.ogg",
+    "guns/gun_ak74u_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 40,
+   "rateJit": 0.03,
+   "send": "gun",
+   "sendAmt": 0.3,
+   "src": "FFSL PPSh"
+  },
+  "gun_galil": {
+   "files": [
+    "guns/gun_galil_1.ogg",
+    "guns/gun_galil_2.ogg",
+    "guns/gun_galil_3.ogg",
+    "guns/gun_galil_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 40,
+   "rateJit": 0.03,
+   "send": "gun",
+   "sendAmt": 0.3,
+   "src": "FFSL AR-15"
+  },
+  "gun_m14": {
+   "files": [
+    "guns/gun_m14_1.ogg",
+    "guns/gun_m14_2.ogg",
+    "guns/gun_m14_3.ogg",
+    "guns/gun_m14_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 40,
+   "rateJit": 0.03,
+   "send": "gun",
+   "sendAmt": 0.3,
+   "src": "FFSL SKS"
+  },
+  "gun_m1911": {
+   "files": [
+    "guns/gun_m1911_1.ogg",
+    "guns/gun_m1911_2.ogg",
+    "guns/gun_m1911_3.ogg",
+    "guns/gun_m1911_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 40,
+   "rateJit": 0.03,
+   "send": "gun",
+   "sendAmt": 0.3,
+   "src": "FFSL 1911"
+  },
+  "gun_mp5": {
+   "files": [
+    "guns/gun_mp5_1.ogg",
+    "guns/gun_mp5_2.ogg",
+    "guns/gun_mp5_3.ogg",
+    "guns/gun_mp5_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 40,
+   "rateJit": 0.03,
+   "send": "gun",
+   "sendAmt": 0.3,
+   "src": "FFSL Carl Gustav M45"
+  },
+  "gun_olympia": {
+   "files": [
+    "guns/gun_olympia_1.ogg",
+    "guns/gun_olympia_2.ogg",
+    "guns/gun_olympia_3.ogg",
+    "guns/gun_olympia_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 40,
+   "rateJit": 0.03,
+   "send": "gun",
+   "sendAmt": 0.3,
+   "src": "FFSL Model 12"
+  },
+  "gun_pap_layer": {
+   "files": [
+    "handling/gun_pap_layer_1.ogg",
+    "handling/gun_pap_layer_2.ogg",
+    "handling/gun_pap_layer_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "send": "hall",
+   "sendAmt": 0.25,
+   "src": "Kenney Sci-Fi Sounds"
+  },
+  "gun_pap_layer_heavy": {
+   "files": [
+    "impacts/gun_pap_layer_heavy_1.ogg",
+    "impacts/gun_pap_layer_heavy_2.ogg",
+    "impacts/gun_pap_layer_heavy_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "send": "hall",
+   "sendAmt": 0.3,
+   "src": "Kenney Sci-Fi Sounds"
+  },
+  "gun_python": {
+   "files": [
+    "guns/gun_python_1.ogg",
+    "guns/gun_python_2.ogg",
+    "guns/gun_python_3.ogg",
+    "guns/gun_python_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 40,
+   "rateJit": 0.03,
+   "send": "gun",
+   "sendAmt": 0.3,
+   "src": "FFSL Smith & Wesson 642"
+  },
+  "gun_raygun": {
+   "files": [
+    "guns/gun_raygun_1.ogg",
+    "guns/gun_raygun_2.ogg",
+    "guns/gun_raygun_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 60,
+   "rateJit": 0.04,
+   "send": "hall",
+   "sendAmt": 0.22,
+   "src": "ElevenLabs raygun_fire"
+  },
+  "gun_remington870": {
+   "files": [
+    "guns/gun_remington870_1.ogg",
+    "guns/gun_remington870_2.ogg",
+    "guns/gun_remington870_3.ogg",
+    "guns/gun_remington870_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 40,
+   "rateJit": 0.03,
+   "send": "gun",
+   "sendAmt": 0.3,
+   "src": "FFSL Nova"
+  },
+  "gun_rpd": {
+   "files": [
+    "guns/gun_rpd_1.ogg",
+    "guns/gun_rpd_2.ogg",
+    "guns/gun_rpd_3.ogg",
+    "guns/gun_rpd_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 40,
+   "rateJit": 0.03,
+   "send": "gun",
+   "sendAmt": 0.3,
+   "src": "FFSL AK-47"
+  },
+  "headshot": {
+   "files": [
+    "impacts/headshot_1.ogg",
+    "impacts/headshot_2.ogg",
+    "impacts/headshot_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 50,
+   "rateJit": 0.02,
+   "src": "Kenney Impact Sounds"
+  },
+  "heartbeat_loop": {
+   "bus": "ambient",
+   "files": [
+    "world/heartbeat_loop.ogg"
+   ],
+   "gain": 1.0,
+   "loop": true,
+   "src": "VCSL Bass Drum"
+  },
+  "hellhound_bite": {
+   "files": [
+    "voices/hellhound_bite_1.ogg",
+    "voices/hellhound_bite_2.ogg",
+    "voices/hellhound_bite_3.ogg",
+    "voices/hellhound_bite_4.ogg",
+    "voices/hellhound_bite_5.ogg",
+    "voices/hellhound_bite_6.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 130,
+   "rateJit": 0.07,
+   "src": "ElevenLabs hellhound bite takes"
+  },
+  "hellhound_death": {
+   "files": [
+    "voices/hellhound_death_1.ogg",
+    "voices/hellhound_death_2.ogg",
+    "voices/hellhound_death_3.ogg",
+    "voices/hellhound_death_4.ogg",
+    "voices/hellhound_death_5.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 130,
+   "rateJit": 0.07,
+   "src": "ElevenLabs hellhound death takes"
+  },
+  "hellhound_footstep": {
+   "files": [
+    "foley/hellhound_footstep_1.ogg",
+    "foley/hellhound_footstep_2.ogg",
+    "foley/hellhound_footstep_3.ogg",
+    "foley/hellhound_footstep_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 90,
+   "rateJit": 0.07,
+   "src": "Kenney Impact Sounds + OGA Different Steps"
+  },
+  "hellhound_growl": {
+   "files": [
+    "voices/hellhound_growl_1.ogg",
+    "voices/hellhound_growl_2.ogg",
+    "voices/hellhound_growl_3.ogg",
+    "voices/hellhound_growl_4.ogg",
+    "voices/hellhound_growl_5.ogg",
+    "voices/hellhound_growl_6.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 130,
+   "rateJit": 0.07,
+   "src": "ElevenLabs hellhound growl takes"
+  },
+  "hellhound_spawn": {
+   "files": [
+    "guns/hellhound_spawn.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "src": "ElevenLabs hellhound_spawn"
+  },
+  "hellround_start": {
+   "bus": "music",
+   "files": [
+    "stingers/hellround_start.ogg"
+   ],
+   "gain": 1.0,
+   "src": "ElevenLabs sting + VCSL organ/bell/gong/timpani"
+  },
+  "hitmarker": {
+   "bus": "ui",
+   "files": [
+    "ui/hitmarker_1.ogg",
+    "ui/hitmarker_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 40,
+   "rateJit": 0.02,
+   "src": "Kenney Interface Sounds"
+  },
+  "hitmarker_head": {
+   "bus": "ui",
+   "files": [
+    "ui/hitmarker_head_1.ogg",
+    "ui/hitmarker_head_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 40,
+   "rateJit": 0.02,
+   "src": "Kenney Interface Sounds"
+  },
+  "impact_concrete": {
+   "files": [
+    "impacts/impact_concrete_1.ogg",
+    "impacts/impact_concrete_2.ogg",
+    "impacts/impact_concrete_3.ogg",
+    "impacts/impact_concrete_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 60,
+   "rateJit": 0.05,
+   "src": "Kenney Impact Sounds"
+  },
+  "impact_dirt": {
+   "files": [
+    "impacts/impact_dirt_1.ogg",
+    "impacts/impact_dirt_2.ogg",
+    "impacts/impact_dirt_3.ogg",
+    "impacts/impact_dirt_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 60,
+   "rateJit": 0.05,
+   "src": "Kenney Impact Sounds"
+  },
+  "impact_glass": {
+   "files": [
+    "impacts/impact_glass_1.ogg",
+    "impacts/impact_glass_2.ogg",
+    "impacts/impact_glass_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 60,
+   "rateJit": 0.05,
+   "src": "Kenney Impact Sounds"
+  },
+  "impact_metal": {
+   "files": [
+    "impacts/impact_metal_1.ogg",
+    "impacts/impact_metal_2.ogg",
+    "impacts/impact_metal_3.ogg",
+    "impacts/impact_metal_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 60,
+   "rateJit": 0.05,
+   "src": "Kenney Impact Sounds"
+  },
+  "impact_wood": {
+   "files": [
+    "impacts/impact_wood_1.ogg",
+    "impacts/impact_wood_2.ogg",
+    "impacts/impact_wood_3.ogg",
+    "impacts/impact_wood_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 60,
+   "rateJit": 0.05,
+   "src": "Kenney Impact Sounds"
+  },
+  "insta_kill": {
+   "bus": "ui",
+   "files": [
+    "world/insta_kill.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "src": "Kenney Digital Audio"
+  },
+  "jump_grunt": {
+   "files": [
+    "voices/jump_grunt_1.ogg",
+    "voices/jump_grunt_2.ogg",
+    "voices/jump_grunt_3.ogg",
+    "voices/jump_grunt_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 130,
+   "rateJit": 0.07,
+   "src": "ElevenLabs player effort takes"
+  },
+  "knife_hit": {
+   "files": [
+    "impacts/knife_hit_1.ogg",
+    "impacts/knife_hit_2.ogg",
+    "impacts/knife_hit_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 60,
+   "rateJit": 0.05,
+   "src": "Kenney Impact Sounds"
+  },
+  "knife_hit_wall": {
+   "files": [
+    "impacts/knife_hit_wall_1.ogg",
+    "impacts/knife_hit_wall_2.ogg",
+    "impacts/knife_hit_wall_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 60,
+   "rateJit": 0.05,
+   "src": "Kenney Impact Sounds"
+  },
+  "knife_swing": {
+   "files": [
+    "handling/knife_swing_1.ogg",
+    "handling/knife_swing_2.ogg",
+    "handling/knife_swing_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 60,
+   "rateJit": 0.05,
+   "src": "OGA sword SFX (StarNinjas)"
+  },
+  "land_hard": {
+   "files": [
+    "impacts/land_hard_1.ogg",
+    "impacts/land_hard_2.ogg",
+    "impacts/land_hard_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 90,
+   "rateJit": 0.07,
+   "src": "Kenney Impact Sounds"
+  },
+  "land_soft": {
+   "files": [
+    "foley/land_soft_1.ogg",
+    "foley/land_soft_2.ogg",
+    "foley/land_soft_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 90,
+   "rateJit": 0.07,
+   "src": "Kenney Impact Sounds"
+  },
+  "low_ammo": {
+   "bus": "ui",
+   "files": [
+    "ui/low_ammo_1.ogg",
+    "ui/low_ammo_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "Kenney RPG Audio"
+  },
+  "max_ammo": {
+   "bus": "ui",
+   "files": [
+    "world/max_ammo.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "src": "Kenney Digital Audio"
+  },
+  "menu": {
+   "bus": "music",
+   "files": [
+    "music/menu.ogg"
+   ],
+   "gain": 1.0,
+   "loop": true,
+   "src": "VCSL pipe organ + tubular bells + OGA wind"
+  },
+  "music_game_over": {
+   "bus": "music",
+   "files": [
+    "music/music_game_over.ogg"
+   ],
+   "gain": 1.0,
+   "loop": true,
+   "src": "VCSL pipe organ + tubular bells"
+  },
+  "nuke_blast": {
+   "files": [
+    "guns/nuke_blast.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "send": "boom",
+   "sendAmt": 0.5,
+   "src": "ElevenLabs nuke_blast"
+  },
+  "pap_upgrade": {
+   "files": [
+    "world/pap_upgrade.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "src": "ElevenLabs pap_upgrade"
+  },
+  "perk_burp": {
+   "files": [
+    "voices/perk_burp_1.ogg",
+    "voices/perk_burp_2.ogg",
+    "voices/perk_burp_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 70,
+   "rateJit": 0.06,
+   "src": "OGA 80 CC0 creature SFX"
+  },
+  "perk_drink": {
+   "files": [
+    "foley/perk_drink_1.ogg",
+    "foley/perk_drink_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 40,
+   "rateJit": 0.02,
+   "src": "OGA 80 CC0 creature SFX"
+  },
+  "perk_jingle_doubletap": {
+   "bus": "music",
+   "files": [
+    "world/perk_jingle_doubletap.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "src": "ElevenLabs jingle (processed through a cheap speaker)"
+  },
+  "perk_jingle_juggernog": {
+   "bus": "music",
+   "files": [
+    "world/perk_jingle_juggernog.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "src": "ElevenLabs jingle (processed through a cheap speaker)"
+  },
+  "perk_jingle_quickrevive": {
+   "bus": "music",
+   "files": [
+    "world/perk_jingle_quickrevive.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "src": "ElevenLabs jingle (processed through a cheap speaker)"
+  },
+  "perk_jingle_speedcola": {
+   "bus": "music",
+   "files": [
+    "world/perk_jingle_speedcola.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "src": "ElevenLabs jingle (processed through a cheap speaker)"
+  },
+  "player_down": {
+   "files": [
+    "voices/player_down_1.ogg",
+    "voices/player_down_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 130,
+   "rateJit": 0.07,
+   "src": "ElevenLabs player down take"
+  },
+  "player_hurt": {
+   "files": [
+    "voices/player_hurt_1.ogg",
+    "voices/player_hurt_2.ogg",
+    "voices/player_hurt_3.ogg",
+    "voices/player_hurt_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 130,
+   "rateJit": 0.07,
+   "src": "ElevenLabs player pain takes"
+  },
+  "power_on": {
+   "files": [
+    "world/power_on.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "src": "ElevenLabs power_on"
+  },
+  "powerup_blink": {
+   "bus": "ui",
+   "files": [
+    "ui/powerup_blink.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "src": "Kenney Digital Audio"
+  },
+  "powerup_grab": {
+   "files": [
+    "world/powerup_grab_1.ogg",
+    "world/powerup_grab_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 40,
+   "rateJit": 0.02,
+   "src": "ElevenLabs powerup_grab"
+  },
+  "powerup_loop": {
+   "bus": "ambient",
+   "files": [
+    "world/powerup_loop.ogg"
+   ],
+   "gain": 1.0,
+   "loop": true,
+   "src": "Kenney Sci-Fi Sounds"
+  },
+  "powerup_spawn": {
+   "files": [
+    "world/powerup_spawn_1.ogg",
+    "world/powerup_spawn_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 40,
+   "rateJit": 0.02,
+   "src": "ElevenLabs powerup_spawn"
+  },
+  "pump_back": {
+   "files": [
+    "handling/pump_back_1.ogg",
+    "handling/pump_back_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA shotgun cock"
+  },
+  "pump_forward": {
+   "files": [
+    "handling/pump_forward_1.ogg",
+    "handling/pump_forward_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA shotgun cock"
+  },
+  "purchase": {
+   "bus": "ui",
+   "files": [
+    "world/purchase.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "src": "Kenney RPG Audio + Interface Sounds"
+  },
+  "purchase_deny": {
+   "bus": "ui",
+   "files": [
+    "ui/purchase_deny.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 25,
+   "rateJit": 0.02,
+   "src": "Kenney Interface Sounds"
+  },
+  "radio_blip": {
+   "bus": "ui",
+   "files": [
+    "ui/radio_blip_1.ogg",
+    "ui/radio_blip_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 40,
+   "rateJit": 0.02,
+   "src": "Kenney Interface Sounds"
+  },
+  "radio_static": {
+   "bus": "ui",
+   "files": [
+    "ui/radio_static.ogg"
+   ],
+   "gain": 1.0,
+   "loop": true,
+   "src": "generated noise bed"
+  },
+  "raygun_impact": {
+   "files": [
+    "guns/raygun_impact_1.ogg",
+    "guns/raygun_impact_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 70,
+   "rateJit": 0.02,
+   "send": "hall",
+   "sendAmt": 0.3,
+   "src": "ElevenLabs raygun_impact"
+  },
+  "reload_break_close": {
+   "files": [
+    "handling/reload_break_close_1.ogg",
+    "handling/reload_break_close_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA equipment clicks"
+  },
+  "reload_break_open": {
+   "files": [
+    "handling/reload_break_open_1.ogg",
+    "handling/reload_break_open_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA equipment clicks"
+  },
+  "reload_lmg_belt": {
+   "files": [
+    "handling/reload_lmg_belt_1.ogg",
+    "handling/reload_lmg_belt_2.ogg",
+    "handling/reload_lmg_belt_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "Kenney RPG Audio"
+  },
+  "reload_lmg_in": {
+   "files": [
+    "handling/reload_lmg_in_1.ogg",
+    "handling/reload_lmg_in_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA gun reload sounds"
+  },
+  "reload_lmg_out": {
+   "files": [
+    "handling/reload_lmg_out_1.ogg",
+    "handling/reload_lmg_out_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA gun reload sounds"
+  },
+  "reload_pistol_in": {
+   "files": [
+    "handling/reload_pistol_in_1.ogg",
+    "handling/reload_pistol_in_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA handgun reload"
+  },
+  "reload_pistol_out": {
+   "files": [
+    "handling/reload_pistol_out_1.ogg",
+    "handling/reload_pistol_out_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA handgun reload"
+  },
+  "reload_raygun_in": {
+   "files": [
+    "handling/reload_raygun_in_1.ogg",
+    "handling/reload_raygun_in_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "Kenney RPG Audio"
+  },
+  "reload_raygun_out": {
+   "files": [
+    "handling/reload_raygun_out_1.ogg",
+    "handling/reload_raygun_out_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "Kenney RPG Audio"
+  },
+  "reload_revolver_close": {
+   "files": [
+    "handling/reload_revolver_close_1.ogg",
+    "handling/reload_revolver_close_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA equipment clicks"
+  },
+  "reload_revolver_eject": {
+   "files": [
+    "handling/reload_revolver_eject_1.ogg",
+    "handling/reload_revolver_eject_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA shotgun reload"
+  },
+  "reload_revolver_open": {
+   "files": [
+    "handling/reload_revolver_open_1.ogg",
+    "handling/reload_revolver_open_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA equipment clicks"
+  },
+  "reload_rifle_in": {
+   "files": [
+    "handling/reload_rifle_in_1.ogg",
+    "handling/reload_rifle_in_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA gun reload sounds"
+  },
+  "reload_rifle_out": {
+   "files": [
+    "handling/reload_rifle_out_1.ogg",
+    "handling/reload_rifle_out_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA gun reload sounds"
+  },
+  "reload_shotgun_shell": {
+   "files": [
+    "handling/reload_shotgun_shell_1.ogg",
+    "handling/reload_shotgun_shell_2.ogg",
+    "handling/reload_shotgun_shell_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA shotgun reload"
+  },
+  "reload_smg_in": {
+   "files": [
+    "handling/reload_smg_in_1.ogg",
+    "handling/reload_smg_in_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA gun reload sounds"
+  },
+  "reload_smg_out": {
+   "files": [
+    "handling/reload_smg_out_1.ogg",
+    "handling/reload_smg_out_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA gun reload sounds"
+  },
+  "round_bed_layer_choir": {
+   "bus": "music",
+   "files": [
+    "world/round_bed_layer_choir.ogg"
+   ],
+   "gain": 1.0,
+   "loop": true,
+   "src": "VCSL pipe organ + tubular bells + OGA wind"
+  },
+  "round_bed_layer_pulse": {
+   "bus": "music",
+   "files": [
+    "world/round_bed_layer_pulse.ogg"
+   ],
+   "gain": 1.0,
+   "loop": true,
+   "src": "VCSL pipe organ + tubular bells + OGA wind"
+  },
+  "round_bed_loop": {
+   "bus": "music",
+   "files": [
+    "world/round_bed_loop.ogg"
+   ],
+   "gain": 1.0,
+   "loop": true,
+   "src": "VCSL pipe organ + tubular bells + OGA wind"
+  },
+  "round_end": {
+   "bus": "music",
+   "files": [
+    "stingers/round_end.ogg"
+   ],
+   "gain": 1.0,
+   "src": "ElevenLabs sting + VCSL organ/bell/gong/timpani"
+  },
+  "round_start": {
+   "bus": "music",
+   "files": [
+    "stingers/round_start.ogg"
+   ],
+   "gain": 1.0,
+   "src": "ElevenLabs sting + VCSL organ/bell/gong/timpani"
+  },
+  "shell_drop": {
+   "files": [
+    "handling/shell_drop_1.ogg",
+    "handling/shell_drop_2.ogg",
+    "handling/shell_drop_3.ogg",
+    "handling/shell_drop_4.ogg",
+    "handling/shell_drop_5.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 70,
+   "rateJit": 0.05,
+   "src": "OGA 100 CC0 metal & wood SFX"
+  },
+  "shell_drop_shotgun": {
+   "files": [
+    "handling/shell_drop_shotgun_1.ogg",
+    "handling/shell_drop_shotgun_2.ogg",
+    "handling/shell_drop_shotgun_3.ogg",
+    "handling/shell_drop_shotgun_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 60,
+   "rateJit": 0.05,
+   "src": "OGA 100 CC0 metal & wood SFX"
+  },
+  "slide_release": {
+   "files": [
+    "handling/slide_release_1.ogg",
+    "handling/slide_release_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "OGA handgun reload"
+  },
+  "sprint_breath": {
+   "files": [
+    "voices/sprint_breath_1.ogg",
+    "voices/sprint_breath_2.ogg",
+    "voices/sprint_breath_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 130,
+   "rateJit": 0.07,
+   "src": "ElevenLabs player effort takes"
+  },
+  "ui_back": {
+   "bus": "ui",
+   "files": [
+    "ui/ui_back_1.ogg",
+    "ui/ui_back_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 30,
+   "rateJit": 0.02,
+   "src": "Kenney Interface Sounds"
+  },
+  "ui_click": {
+   "bus": "ui",
+   "files": [
+    "ui/ui_click_1.ogg",
+    "ui/ui_click_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 30,
+   "rateJit": 0.02,
+   "src": "Kenney Interface Sounds"
+  },
+  "ui_hover": {
+   "bus": "ui",
+   "files": [
+    "ui/ui_hover_1.ogg",
+    "ui/ui_hover_2.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 30,
+   "rateJit": 0.02,
+   "src": "Kenney Interface Sounds"
+  },
+  "vox_carpenter": {
+   "bus": "ui",
+   "files": [
+    "voices/vox_carpenter.ogg"
+   ],
+   "gain": 1.0,
+   "src": "ElevenLabs text-to-speech (processed PA)"
+  },
+  "vox_double_points": {
+   "bus": "ui",
+   "files": [
+    "voices/vox_double_points.ogg"
+   ],
+   "gain": 1.0,
+   "src": "ElevenLabs text-to-speech (processed PA)"
+  },
+  "vox_fire_sale": {
+   "bus": "ui",
+   "files": [
+    "voices/vox_fire_sale.ogg"
+   ],
+   "gain": 1.0,
+   "src": "ElevenLabs text-to-speech (processed PA)"
+  },
+  "vox_insta_kill": {
+   "bus": "ui",
+   "files": [
+    "voices/vox_insta_kill.ogg"
+   ],
+   "gain": 1.0,
+   "src": "ElevenLabs text-to-speech (processed PA)"
+  },
+  "vox_max_ammo": {
+   "bus": "ui",
+   "files": [
+    "voices/vox_max_ammo.ogg"
+   ],
+   "gain": 1.0,
+   "src": "ElevenLabs text-to-speech (processed PA)"
+  },
+  "vox_nuke": {
+   "bus": "ui",
+   "files": [
+    "voices/vox_nuke.ogg"
+   ],
+   "gain": 1.0,
+   "src": "ElevenLabs text-to-speech (processed PA)"
+  },
+  "weapon_lower": {
+   "files": [
+    "handling/weapon_lower_1.ogg",
+    "handling/weapon_lower_2.ogg",
+    "handling/weapon_lower_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "Kenney RPG Audio"
+  },
+  "weapon_raise": {
+   "files": [
+    "handling/weapon_raise_1.ogg",
+    "handling/weapon_raise_2.ogg",
+    "handling/weapon_raise_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "Kenney RPG Audio"
+  },
+  "weapon_switch": {
+   "files": [
+    "handling/weapon_switch_1.ogg",
+    "handling/weapon_switch_2.ogg",
+    "handling/weapon_switch_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 35,
+   "rateJit": 0.02,
+   "src": "Kenney RPG Audio"
+  },
+  "zombie_attack": {
+   "files": [
+    "voices/zombie_attack_1.ogg",
+    "voices/zombie_attack_2.ogg",
+    "voices/zombie_attack_3.ogg",
+    "voices/zombie_attack_4.ogg",
+    "voices/zombie_attack_5.ogg",
+    "voices/zombie_attack_6.ogg",
+    "voices/zombie_attack_7.ogg",
+    "voices/zombie_attack_8.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 130,
+   "rateJit": 0.07,
+   "src": "ElevenLabs zombie attack takes"
+  },
+  "zombie_bodyfall": {
+   "files": [
+    "impacts/zombie_bodyfall_1.ogg",
+    "impacts/zombie_bodyfall_2.ogg",
+    "impacts/zombie_bodyfall_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 60,
+   "rateJit": 0.05,
+   "src": "Kenney Impact Sounds"
+  },
+  "zombie_death": {
+   "files": [
+    "voices/zombie_death_1.ogg",
+    "voices/zombie_death_2.ogg",
+    "voices/zombie_death_3.ogg",
+    "voices/zombie_death_4.ogg",
+    "voices/zombie_death_5.ogg",
+    "voices/zombie_death_6.ogg",
+    "voices/zombie_death_7.ogg",
+    "voices/zombie_death_8.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 130,
+   "rateJit": 0.07,
+   "src": "ElevenLabs zombie death takes"
+  },
+  "zombie_footstep": {
+   "files": [
+    "foley/zombie_footstep_1.ogg",
+    "foley/zombie_footstep_2.ogg",
+    "foley/zombie_footstep_3.ogg",
+    "foley/zombie_footstep_4.ogg",
+    "foley/zombie_footstep_5.ogg",
+    "foley/zombie_footstep_6.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 90,
+   "rateJit": 0.07,
+   "src": "Kenney Impact Sounds + OGA Different Steps"
+  },
+  "zombie_gib": {
+   "files": [
+    "impacts/zombie_gib_1.ogg",
+    "impacts/zombie_gib_2.ogg",
+    "impacts/zombie_gib_3.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 70,
+   "rateJit": 0.06,
+   "src": "OGA 100 CC0 SFX"
+  },
+  "zombie_groan": {
+   "files": [
+    "voices/zombie_groan_1.ogg",
+    "voices/zombie_groan_2.ogg",
+    "voices/zombie_groan_3.ogg",
+    "voices/zombie_groan_4.ogg",
+    "voices/zombie_groan_5.ogg",
+    "voices/zombie_groan_6.ogg",
+    "voices/zombie_groan_7.ogg",
+    "voices/zombie_groan_8.ogg",
+    "voices/zombie_groan_9.ogg",
+    "voices/zombie_groan_10.ogg",
+    "voices/zombie_groan_11.ogg",
+    "voices/zombie_groan_12.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 130,
+   "rateJit": 0.07,
+   "src": "ElevenLabs zombie groan / crawler / pain takes"
+  },
+  "zombie_rise_dirt": {
+   "files": [
+    "voices/zombie_rise_dirt_1.ogg",
+    "voices/zombie_rise_dirt_2.ogg",
+    "voices/zombie_rise_dirt_3.ogg",
+    "voices/zombie_rise_dirt_4.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 130,
+   "rateJit": 0.07,
+   "src": "ElevenLabs zombie rise takes"
+  },
+  "zombie_scream": {
+   "files": [
+    "voices/zombie_scream_1.ogg",
+    "voices/zombie_scream_2.ogg",
+    "voices/zombie_scream_3.ogg",
+    "voices/zombie_scream_4.ogg",
+    "voices/zombie_scream_5.ogg",
+    "voices/zombie_scream_6.ogg",
+    "voices/zombie_scream_7.ogg",
+    "voices/zombie_scream_8.ogg"
+   ],
+   "gain": 1.0,
+   "jitter": 130,
+   "rateJit": 0.07,
+   "src": "ElevenLabs sprinter scream takes"
+  }
+ },
+ "tracks": {
+  "game_over": "music_game_over",
+  "menu": "menu"
+ },
+ "version": 1
+}

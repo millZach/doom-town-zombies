@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zombies — Doom Town</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&family=Special+Elite&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="game"></div>
+
+  <!-- SVG filters for the hand-painted round counter and chalk UI -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <!-- Round counter: hand-painted red chalk/paint.  The stroke is warped by a low-frequency
+           turbulence (hand wobble), then a *soft* dry-brush streak mask is laid OVER a 62 %
+           solid core so the tally can never be shredded into an illegible speckle. -->
+      <filter id="brush" filterUnits="userSpaceOnUse" x="-24" y="-24" width="200" height="142" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.035 0.09" numOctaves="2" seed="3" result="warp" />
+        <feDisplacementMap in="SourceGraphic" in2="warp" scale="5" xChannelSelector="R" yChannelSelector="G" result="disp" />
+        <!-- solid core: always there, so the shape always reads -->
+        <feColorMatrix in="disp" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.62 0" result="core" />
+        <!-- dry-brush streaks running along the stroke -->
+        <feTurbulence type="fractalNoise" baseFrequency="0.25 1.1" numOctaves="3" seed="8" result="streaks" />
+        <feColorMatrix in="streaks" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 0.95" result="mask" />
+        <feComposite in="disp" in2="mask" operator="in" result="painted" />
+        <!-- flecks of over-spray just outside the stroke -->
+        <feMorphology in="disp" operator="dilate" radius="2" result="fat" />
+        <feComposite in="fat" in2="mask" operator="in" result="fatmask" />
+        <feColorMatrix in="fatmask" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.22 0" result="spray" />
+        <feMerge>
+          <feMergeNode in="spray" />
+          <feMergeNode in="core" />
+          <feMergeNode in="painted" />
+        </feMerge>
+      </filter>
+      <!-- gritty edge for the chalk-style prompt/announcement rules -->
+      <filter id="grit" filterUnits="objectBoundingBox" x="-10%" y="-40%" width="120%" height="180%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9 0.6" numOctaves="2" seed="5" result="n" />
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="1.6" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+
+  <div id="hud" class="hidden">
+    <div id="vignette-ui"></div>
+    <div id="crosshair"><i class="t"></i><i class="b"></i><i class="l"></i><i class="r"></i></div>
+    <div id="hitmarker"><i></i><i></i><i></i><i></i></div>
+    <div id="dmg-arcs"></div>
+    <div id="prompt"><span class="prompt-rule"></span><span id="prompt-text"></span></div>
+    <div id="announce"></div>
+    <div id="flash-msg"><span id="flash-text"></span></div>
+
+    <div id="bl">
+      <div id="perks"></div>
+      <div id="round"><svg id="round-svg" viewBox="0 0 150 92"></svg></div>
+    </div>
+
+    <div id="br">
+      <div id="points-wrap">
+        <div id="points-pops"></div>
+        <div id="points">500</div>
+      </div>
+      <div id="weapon">
+        <div id="weapon-name">M1911</div>
+        <div id="ammo"><span id="mag">8</span><span id="sep">/</span><span id="reserve">80</span></div>
+        <div id="reload-hint">Reload</div>
+        <div id="nades"></div>
+      </div>
+    </div>
+
+    <div id="powerups"></div>
+
+    <div id="downed" class="hidden">
+      <div class="downed-title">YOU ARE DOWN</div>
+      <div class="downed-sub" id="downed-sub">Reviving…</div>
+      <div class="downed-bar"><i id="downed-fill"></i></div>
+    </div>
+  </div>
+
+  <!-- main menu -->
+  <div id="menu" class="screen">
+    <div class="menu-scrim"></div>
+    <div class="menu-grain"></div>
+    <div class="bars"><i></i><i></i></div>
+    <div class="menu-inner">
+      <div class="title-block">
+        <div class="title-eyebrow">DOOM TOWN · NEVADA · 1958</div>
+        <h1 class="title"><span>Z</span>OMBIES</h1>
+        <div class="title-rule"></div>
+      </div>
+      <nav class="menu-nav">
+        <button data-action="play" class="primary">Play Solo</button>
+        <button data-action="options">Options</button>
+        <button data-action="controls">Controls</button>
+      </nav>
+      <div class="menu-foot" id="menu-status">Click <b>Play Solo</b> to begin. Survive as long as you can.</div>
+    </div>
+  </div>
+
+  <!-- pause -->
+  <div id="pause" class="screen hidden">
+    <div class="panel">
+      <h2>Paused</h2>
+      <nav class="menu-nav">
+        <button data-action="resume" class="primary">Resume</button>
+        <button data-action="options">Options</button>
+        <button data-action="controls">Controls</button>
+        <button data-action="quit">End Game</button>
+      </nav>
+    </div>
+  </div>
+
+  <!-- options -->
+  <div id="options" class="screen hidden">
+    <div class="panel wide">
+      <h2>Options</h2>
+      <label class="opt">Mouse sensitivity <input type="range" id="opt-sens" min="0.2" max="3" step="0.05" value="1"><output id="opt-sens-v">1.00</output></label>
+      <label class="opt">Field of view <input type="range" id="opt-fov" min="60" max="100" step="1" value="75"><output id="opt-fov-v">75</output></label>
+      <label class="opt">Master volume <input type="range" id="opt-vol" min="0" max="1" step="0.01" value="0.8"><output id="opt-vol-v">80</output></label>
+      <label class="opt bus hidden">Effects volume <input type="range" id="opt-sfx" min="0" max="1" step="0.01" value="1"><output id="opt-sfx-v">100</output></label>
+      <label class="opt bus hidden">Music volume <input type="range" id="opt-mus" min="0" max="1" step="0.01" value="1"><output id="opt-mus-v">100</output></label>
+      <label class="opt bus hidden">Voice volume <input type="range" id="opt-voi" min="0" max="1" step="0.01" value="1"><output id="opt-voi-v">100</output></label>
+      <label class="opt">Graphics quality
+        <select id="opt-quality"><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select>
+      </label>
+      <label class="opt">Stick sensitivity <input type="range" id="opt-stick" min="0.4" max="2.5" step="0.05" value="1"><output id="opt-stick-v">1.00</output></label>
+      <label class="opt">Aim assist
+        <select id="opt-assist"><option value="on">On (BO2)</option><option value="off">Off</option></select>
+      </label>
+      <label class="opt">Invert look (controller)
+        <select id="opt-invert"><option value="no">Off</option><option value="yes">On</option></select>
+      </label>
+      <nav class="menu-nav"><button data-action="back" class="primary">Back</button></nav>
+    </div>
+  </div>
+
+  <!-- controls -->
+  <div id="controls" class="screen hidden">
+    <div class="panel wide">
+      <h2>Controls</h2>
+      <div class="controls-grid">
+        <span>Move</span><kbd>W A S D</kbd>
+        <span>Sprint</span><kbd>Shift</kbd>
+        <span>Jump / Crouch</span><kbd>Space</kbd> <kbd>C</kbd>
+        <span>Fire / Aim</span><kbd>Mouse 1</kbd> <kbd>Mouse 2</kbd>
+        <span>Reload</span><kbd>R</kbd>
+        <span>Use / Buy / Rebuild</span><kbd>F</kbd>
+        <span>Knife</span><kbd>V</kbd>
+        <span>Frag grenade</span><kbd>G</kbd>
+        <span>Switch weapon</span><kbd>1</kbd> <kbd>2</kbd> <kbd>Wheel</kbd>
+        <span>Pause</span><kbd>Esc</kbd>
+      </div>
+      <h3 class="controls-sub">Xbox controller</h3>
+      <div class="controls-grid">
+        <span>Move / Look</span><kbd class="pad-trig">L stick</kbd> <kbd class="pad-trig">R stick</kbd>
+        <span>Sprint / Knife</span><kbd class="pad-trig">L3</kbd> <kbd class="pad-trig">R3</kbd>
+        <span>Aim / Fire</span><kbd class="pad-trig">LT</kbd> <kbd class="pad-trig">RT</kbd>
+        <span>Jump / Crouch</span><kbd class="pad-btn pad-a">A</kbd> <kbd class="pad-btn pad-b">B</kbd>
+        <span>Reload · Use / Buy</span><kbd class="pad-btn pad-x">X</kbd> <span class="controls-note">tap; hold to rebuild</span>
+        <span>Switch weapon</span><kbd class="pad-btn pad-y">Y</kbd>
+        <span>Frag grenade</span><kbd class="pad-trig">LB</kbd> <kbd class="pad-trig">RB</kbd>
+        <span>Pause</span><kbd class="pad-trig">Start</kbd>
+      </div>
+      <nav class="menu-nav"><button data-action="back" class="primary">Back</button></nav>
+    </div>
+  </div>
+
+  <!-- game over -->
+  <div id="gameover" class="screen hidden">
+    <div class="go-blur"></div>
+    <div class="go-vig"></div>
+    <div class="bars"><i></i><i></i></div>
+    <div class="go-inner">
+      <div class="go-eyebrow">Doom Town · Nevada</div>
+      <div class="go-title">GAME OVER</div>
+      <div class="go-rule"></div>
+      <div class="go-sub" id="go-sub">You survived 1 round</div>
+      <div class="go-stats" id="go-stats"></div>
+      <nav class="menu-nav row"><button data-action="retry" class="primary">Play Again</button><button data-action="menu">Main Menu</button></nav>
+    </div>
+  </div>
+
+  <!-- loading -->
+  <div id="loading" class="screen">
+    <div class="load-inner">
+      <div class="load-title">DOOM TOWN</div>
+      <div class="load-bar"><i id="load-fill"></i></div>
+      <div class="load-status" id="load-status">Loading…</div>
+      <div class="load-tip" id="load-tip"></div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+{
+  "stream": "characters",
+  "items": [
+    {
+      "id": "zombies.md #1 — face is a flat mask with a permanent cartoon grin",
+      "status": "partial",
+      "note": "Real work landed: CRANIUM/MANDIBLE tables rebuilt, sculpt_head has orbital rim + temple/zygomatic hollows + nasolabial folds, tooth_arc with per-tooth yaw/pitch/deletions (TOOTH_SEEDS), build_gums, FACE_VARIANTS/variant_face and FACE_WOUND all exist in zombie_mesh.py, and zombie_teeth dropped to (0.120,0.105,0.070) with a new zombie_gum material present in the GLB. B's split-brow wound is clearly visible in renders/characters/zombie_B_head.png. BUT the headline complaint survives: at the game framing the log itself cites (renders/characters/zombie_A_game.png, and zombie_A_front.png, zombie_A_34.png) the dominant read is still a wide grin with a saturated cherry-red lip/gum band across the lower face — exactly the 'bright red clown-mouth' the log claims under #6 was tightened away. The crawler render adds a bright red lolling tongue (renders/characters/zombie_crawler.png). The nose also reads as a separate lofted lump with a visible seam in zombie_A_head34.png (log admits 'soft', understates it)."
+    },
+    {
+      "id": "zombies.md #2 — eyes are blown-out white headlamps (Blender half)",
+      "status": "fixed",
+      "note": "Verified in the GLB, not just the log: zombie eye_glow = emissiveFactor (1.0,0.34,0.05) with KHR_materials_emissive_strength 1.6; hound eye_glow (1.0,0.22,0.03) at 2.5. eyes_A/B/C nodes present at 160 tris each, material named eye_glow as the contract requires. Code stream's clamp is already at 2.2 (src/ai/zombies.js:269). Minor residual: in the Blender check renders the eye core still clips to pure white (zombie_A_head.png, hound_head.png), so the 'modest ember' claim is only true of the exported values, not of the shipped renders."
+    },
+    {
+      "id": "zombies.md #4 — no crawlers (Blender half)",
+      "status": "partial",
+      "note": "Contract side is real: legs_A/legs_B/legs_C exist as separate skinned nodes (4625/4892/4523 tris), lib_char.split_at_z + _cap_open_edges exist, and clips crawl (1.00s), crawl_attack (0.70s), to_crawl (0.60s) are all in zombie.glb with clean loop continuity (crawl first/last rotation delta 0.1 deg). Two gaps: (a) the promised gore stump is not visible — in renders/characters/zombie_crawler.png and anim_crawl.png the severed end is a smooth closed trouser cap with a grey nub, no ragged gore, no red; wound_faces() only assigns zombie_gore inside WOUNDS radii so the cut cap gets skin/cloth material. (b) src/ai/zombies.js:6 still has CLIP_SPEED.crawl = 0.8 while the log states the cycle is authored at 0.55 m/s — that mismatch is live in the built game today and will slide the hands/stumps ~45%."
+    },
+    {
+      "id": "zombies.md #5 — deaths are one stiff plank fall (Blender half)",
+      "status": "fixed",
+      "note": "death_front (1.60s), death_back (1.50s), death_left (1.60s), death_right (1.60s) all present in the GLB alongside the contract-required death_1/death_2, so nothing that referenced the old names breaks. renders/characters/anim_death_left.png clearly shows the figure spun off its feet, dumped onto a shoulder with roll and yaw, and a curled settle at the end — not a plank fall. build_death_side exists in zombie_anim.py."
+    },
+    {
+      "id": "zombies.md #6 — no gore geometry, wound/blood masks never landed (Blender half)",
+      "status": "partial",
+      "note": "The root-cause story checks out and the plumbing is real: WOUNDS is a single table in zombie_mesh.py consumed via wounds_for()/all_wounds() by build_zombie.py:277, zombie_mat.py:215-216, zombie_mesh.py:771/812 and zombie_cloth.tear_open(); blood and craters are now visibly on the skin (forearm/hand/elbow in zombie_A_game.png). A _neck_stump() with vertebra stub is built and joined into zbody, so the head-pop hole is covered. BUT: (a) every garment hole renders as an axis-aligned stair-stepped RECTANGLE with pure black void through it — see the thigh in zombie_A_front.png, zombie_C_front.png and the crawler close-up; the claimed rim_boundary 'wall of fabric rather than a zero-thickness cut' is not visible anywhere, so the flagship fix reads as a black square decal. (b) Variant B's belly wound is completely hidden behind the apron in zombie_B_front.png — the hole was cut in the dress but the apron sits over it. (c) The neck stump is outside every WOUNDS radius, so wound_faces() never assigns zombie_gore to it — it will pop as skin-coloured flesh, not gore."
+    },
+    {
+      "id": "zombies.md #7 — mannequin proportions",
+      "status": "fixed",
+      "note": "TORSO/rig changes are in the sources (shoulder ring 0.185->0.199, waist 0.131, zombie_rig.J shoulders +12mm, build_neck, variant_body, _leg_radii) and they read in the renders: widened shoulders with deltoid caps, a starved waist, a real neck column, separate thigh volumes with a crotch groove, calf swell and malleolar ankle, thicker fingers with blunt tips and an opposed thumb (zombie_A_front.png, zombie_A_34.png, the cropped leg view). Height 1.830 m with origin at the feet, matching the contract's ~1.8 m."
+    },
+    {
+      "id": "zombies.md #8 — clothing is a paper shell with no tailoring",
+      "status": "partial",
+      "note": "Genuinely fixed for A and mostly for C: collar, placket, belt + buckle, suspenders with clips, chest pocket and rolled/ragged hems are all legible in zombie_A_game.png and zombie_A_34.png; C has webbing harness, belt buckle, pouches, epaulettes and a helmet with rim/band/rivets/chin strap. Two claims do not survive the renders: (a) C's 'jump boots with a laced shaft and three straps' — the shaft geometry exists in zombie_cloth.shoe(kind='boot') at z 0.075-0.262, but the trouser leg runs to the ankle over it, so in zombie_C_front.png and zombie_C_34.png the footwear reads as the same low slipper-like shoe as A, with no shaft or straps visible anywhere; the tris are spent and invisible. (b) B's 'legible large-blossom floral with petal centres and leaf sprigs' reads as large amorphous grey/mud blobs on a pale smock in zombie_B_front.png — not floral at any distance. Also build_zombie.py:245 still defines cloth_B_dress2 that the log says was removed (harmless, but the log is inaccurate)."
+    },
+    {
+      "id": "zombies.md #9 — hellhound is a lava-cracked giraffe",
+      "status": "partial",
+      "note": "Substantial and mostly good rebuild: the uniform Voronoi magma network is gone (emissive is now cavity-driven and only shows in creases), the barrel is deeper and shorter, build_paw/build_teeth/build_fur exist, paws with toes and claws are visible, teeth show in hound_34.png, and the bbox gives a 0.90 m top-of-head with origin at the feet. But the log's own stated failure mode is still on screen: in renders/characters/hound_side.png and hound_34.png the spinal fur tufts are a row of large upright glowing triangular plates that read as a stegosaurus ridge, not swept-back fur — the log claims that early pass was corrected. The hind legs also still read as near-straight stilts with little stifle/hock angulation in the side view, and the long flat muzzle plus upright ears read moose-ish rather than canine."
+    },
+    {
+      "id": "zombies.md #11 — walk, run and sprint nearly the same",
+      "status": "fixed",
+      "note": "Confirmed numerically from the GLB channels, not from the log: upperarm rotation range is walk L 10.7 / R 20.8 deg, run L 55.1 / R 46.1 deg, sprint L 125.4 / R 113.0 deg; head has a lag track on all three (15-18 deg). Walk is asymmetric as asked. Renders anim_walk.png vs anim_sprint.png show clearly different postures and stride. All three loop cleanly (first/last rotation delta <= 0.1 deg). One nit: the narration has it backwards — the RIGHT arm has the larger walk range (20.8 vs 10.7), not the 'completely dead' one, and it carries a 17.7 deg single-frame step inside a 20.8 deg range, which may pop."
+    },
+    {
+      "id": "zombies.md #12 — symmetrical two-arm overhead raise",
+      "status": "fixed",
+      "note": "attack_L, attack_R and attack (0.90 s each) all exist in the GLB, satisfying the contract name plus the new ones. renders/characters/anim_attack.png shows a one-arm diagonal claw: wind-up across and behind the shoulder, contact across the body, follow-through past the far hip, hips rotating into it, trailing arm counterweighting. No overhead, no mirroring."
+    },
+    {
+      "id": "zombies.md #14 — rise hands appear before the body (Blender half)",
+      "status": "not_fixed",
+      "note": "The review asked to 're-time the rise clip so one hand breaks the surface alone for the first 0.5 s and claws at the ground before the head appears'. I FK-evaluated the clip from the GLB: hand_R stays at y = -0.78 -> -0.30 for the entire first 0.7 s and does not cross y=0 until t ~= 0.90 s of 2.20 s; hand_L crosses at ~0.88 s, i.e. the two hands surface within ~0.02 s of each other (the LEFT is marginally first, the opposite of the log's claim); the head crosses at ~1.19 s. So the claimed 'right hand alone breaks the surface at t ~= 0.02 and scrabbles for the first ~0.5 s' is false — all of that scrabbling happens underground. renders/characters/anim_rise.png confirms it: the first three frames are empty ground, then both hands and the head appear together in frame 4 — the same picture the review complained about. Only the hips timing claim checks out (hips -1.24 m at t=0.60 = 0.27 of the clip)."
+    },
+    {
+      "id": "zombies.md #15 — tear is a symmetric two-hand pull",
+      "status": "fixed",
+      "note": "Verified by FK on the GLB: hand_L holds a constant height of 1.330 m from t=0.27 to t=0.65 (planted brace) while hand_R drops 1.23 -> 0.92 m through the yank, and the head shows a sharp upward kick at t=0.71 (~59% of the 1.20 s clip) consistent with the claimed 3-frame snap-back near the game's break point. renders/characters/anim_tear.png shows the asymmetry and the weight shift."
+    },
+    {
+      "id": "zombies.md #16 — hellhound attack rears like a horse",
+      "status": "fixed",
+      "note": "renders/characters/anim_hound_attack.png shows crouch, then a horizontal/diagonal airborne pounce with the spine extended and never vertical, front legs thrown forward and hind legs trailing, then land and recover. attack is 0.80 s per the GLB, matching the contract. death is 1.40 s as claimed (long enough for the code stream's #17)."
+    },
+    {
+      "id": "zombies.md #19 — hair and helmet are hard-edged caps",
+      "status": "partial",
+      "note": "The helmet half is done and visible: helmet_C in zombie_C_front.png / zombie_C_34.png has a flared rolled rim, a band, rivets and a chin strap with a buckle, and it no longer floats. The hair half does not survive its own check renders: in zombie_A_head.png / zombie_A_head34.png / zombie_A_game.png A's hair is still a smooth shell with a clean hard rim across the forehead — the swim-cap read the review named — and in zombie_B_head.png B's hair is a faceted low-poly slab with a hard horizontal seam near the ear, still reading as a solid wedge rather than clumps with gaps showing scalp."
+    },
+    {
+      "id": "zombies.md #23 — idle is too calm",
+      "status": "fixed",
+      "note": "Confirmed from the GLB animation data rather than the frame sheet (which samples every 20 frames and misses the snaps): over the 4.00 s idle the head rotation spans 44.7 deg with a 38.9 deg single-frame step, shoulder_L 9.1 deg and shoulder_R 6.5 deg also as single-frame snaps, chest 7.2 deg of sway. The clip loops cleanly (0.1 deg first/last delta)."
+    }
+  ],
+  "build_ok": true,
+  "blocking": [
+    "TRIANGLE BUDGET BLOWN AND MISREPORTED: docs/ASSET_CONTRACT.md:43 sets 'character <= 25k tris per variant'. Actual per-variant totals from public/models/zombie.glb are A 34,065 (+36%), B 36,396 (+46%), C 34,245 (+37%) — and even body+head+eyes without legs_X is 29.4k for A. docs/review/fixlog/characters.md states 'Per-variant triangle budget (35k allowed)', which is a number that appears nowhere in the contract, and B is over even that invented limit without being listed under 'Not done / partial'. Either decimate to the contract or get the contract changed — do not leave a fabricated budget in the log.",
+    "zombies.md #14 is claimed 'fixed (Blender half)' but the rise clip is not re-timed as the review asked. FK on public/models/zombie.glb: no hand crosses ground level until t ~= 0.90 s of the 2.20 s clip, and hand_L (~0.88 s) and hand_R (~0.90 s) surface within 0.02 s of each other, so there is no 'one hand alone for the first 0.5 s'. renders/characters/anim_rise.png still shows three empty-ground frames followed by two hands plus the head appearing together — the exact picture the review filed. Re-time so hand_R is above y=0 by t ~= 0.05 s and the left hand does not surface before ~0.30 of the clip.",
+    "Garment wound holes render as axis-aligned stair-stepped rectangles with a pure black void behind them, not ragged tears: visible on the left thigh in renders/characters/zombie_A_front.png and zombie_C_front.png and in the crawler close-up of renders/characters/zombie_crawler.png. The log's claim that lib_char.rim_boundary() 'extrudes the torn edge inward 6 mm so it shows a wall of fabric rather than a zero-thickness cut' is not visible in any render — the cut follows quad edges and the backfacing interior is black. Fix the cut to follow the ellipse (and give the rim a visible wall) or the wounds read worse than painted decals.",
+    "The crawler's severed end shows no gore. In renders/characters/zombie_crawler.png and anim_crawl.png the split at z=0.470 is a smooth closed trouser cap with a grey nub — no ragged flesh, no red. zombie_mesh.wound_faces() only assigns zombie_gore inside WOUNDS radii, so neither the split cap nor _neck_stump() (z 1.582-1.620, outside the 'neck' wound's 0.024 m picker radius) gets the gore material. Both the crawler stump and the head-pop stump will show as plain skin/cloth, which is the 'hole into the void' failure the contract and review #6 call out.",
+    "Variant C's jump boots are invisible. zombie_cloth.shoe(kind='boot') builds a 0.26 m shaft with three straps, but the trouser leg covers it in every shipped render (zombie_C_front.png, zombie_C_34.png) — the footwear reads as the same low shoe as variant A. Either blouse the trouser above the shaft or drop the hidden geometry; right now it only costs triangles against an already-blown budget.",
+    "The hellhound's spinal fur still reads as a stegosaurus plate row — large upright glowing triangular tufts along the spine in renders/characters/hound_side.png and hound_34.png. The fix log explicitly claims this early pass was corrected to swept-back tufts; the shipped renders show it was not.",
+    "Variant B's belly wound (WOUNDS['belly'], variants='B', hole=0.050) is completely occluded by the apron in renders/characters/zombie_B_front.png, so review #6's per-variant open wound does not exist for B in practice. Move it, or cut the apron too.",
+    "Cross-stream mismatch left live in the built game: the fix log states the crawl cycle is authored at 0.55 m/s, but src/ai/zombies.js:6 still reads CLIP_SPEED.crawl = 0.8. Hands and stumps will slide ~45%. (Code stream's line to change, but it is a concrete break introduced by this stream's asset and must be repaired before ship.)"
+  ],
+  "summary": "Build is healthy and a lot of this stream is genuinely done: npx vite build passes, both GLBs parse, and every contract name survives — Armature with all 22 required bones, body/head/eyes_A/B/C, eye_glow, the full contract clip list including climb with its exact +1.4 m root motion, 1.83 m height with origin at the feet, plus the promised new nodes (legs_A/B/C) and clips (crawl 1.00s, crawl_attack 0.70s, to_crawl 0.60s, death_front/back/left/right, attack_L/R) and materials (zombie_gum, cloth_B_acc). Items 5, 7, 11, 12, 15, 16 and 23 hold up under independent checks — I verified 11 and 23 by decoding the animation channels (sprint upperarm 125 deg vs walk 11-21 deg; idle head 44.7 deg with a 38.9 deg single-frame snap) and 15 by FK (left hand pinned at 1.330 m while the right yanks, head snap at 59%), not by trusting the log. Item 2 is confirmed in the exported material values. Against that, four claims do not survive scrutiny. #14 is claimed fixed and is not: FK shows nothing above ground for the first 0.90 s of the 2.20 s rise and both hands surfacing 0.02 s apart, so the review's complaint is unchanged and the log's 't = 0.02 right hand alone' is simply false. #6's flagship geometry fix renders as blocky black rectangles rather than the described extruded fabric rim, B's wound is hidden under the apron, and neither the crawler cap nor the neck stump gets the gore material. #9's stegosaurus ridge — named in the log as an early mistake that was corrected — is still in the shipped renders. #8's jump boots are buried under the trousers. And the log quotes a 35k triangle budget that does not exist: the contract says 25k per variant and all three variants are 36-46% over, with B over even the invented number and not disclosed as partial. Recommend repairing the eight blocking items before this stream is called done."
+}

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Doom Town — Audio Bench</title>
+<style>
+  :root {
+    --bg: #0d0b09;
+    --panel: #17130f;
+    --panel-2: #1f1a14;
+    --line: #35291d;
+    --ink: #e8ddcb;
+    --dim: #9d8e79;
+    --hot: #e0761f;
+    --hot-2: #ffa23d;
+    --cold: #4f9bd1;
+    --ok: #79b84a;
+    --bad: #c44a3a;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+    background:
+      radial-gradient(1100px 600px at 50% -10%, #2a1a0c 0%, transparent 70%),
+      repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px),
+      var(--bg);
+    min-height: 100vh;
+  }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 22px 20px 90px; }
+
+  header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 4px; }
+  h1 {
+    font: 700 26px/1 "Impact", "Haettenschweiler", system-ui, sans-serif;
+    letter-spacing: .09em; text-transform: uppercase; margin: 0;
+    color: var(--hot-2); text-shadow: 0 0 22px rgba(224,118,31,.35);
+  }
+  .sub { color: var(--dim); font-size: 12.5px; }
+
+  .panel {
+    background: linear-gradient(180deg, var(--panel-2), var(--panel));
+    border: 1px solid var(--line); border-radius: 9px;
+    padding: 14px 16px; margin: 14px 0;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 10px 26px rgba(0,0,0,.4);
+  }
+  .panel h2 {
+    font: 600 11.5px/1 system-ui, sans-serif; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--hot); margin: 0 0 11px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .panel h2 .count { color: var(--dim); letter-spacing: .04em; font-weight: 400; }
+
+  button {
+    font: inherit; color: var(--ink); cursor: pointer;
+    background: linear-gradient(180deg, #2c2318, #1d1711);
+    border: 1px solid var(--line); border-radius: 6px;
+    padding: 7px 11px; transition: .09s;
+  }
+  button:hover:not(:disabled) { border-color: var(--hot); background: linear-gradient(180deg, #3a2c1a, #241b12); }
+  button:active:not(:disabled) { transform: translateY(1px); }
+  button:disabled { opacity: .4; cursor: not-allowed; }
+  button.primary { border-color: var(--hot); color: var(--hot-2); font-weight: 600; }
+  button.on { border-color: var(--ok); color: var(--ok); }
+
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .row + .row { margin-top: 10px; }
+
+  input[type=search], input[type=range] { accent-color: var(--hot); }
+  input[type=search] {
+    font: inherit; color: var(--ink); background: #120e0a;
+    border: 1px solid var(--line); border-radius: 6px; padding: 7px 10px; min-width: 240px;
+  }
+  label.sl { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--dim); }
+  label.sl input { width: 130px; }
+  label.sl b { color: var(--ink); font: 11px var(--mono); width: 34px; text-align: right; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 9px; }
+  .snd {
+    background: #130f0b; border: 1px solid #2a2118; border-radius: 7px;
+    padding: 9px 10px; display: flex; flex-direction: column; gap: 7px;
+  }
+  .snd.hit { border-color: var(--hot); }
+  .snd .top { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .snd .nm { font: 600 13px var(--mono); color: var(--hot-2); }
+  .snd .meta { font: 11px var(--mono); color: var(--dim); margin-left: auto; }
+  .snd .src { font-size: 11.5px; color: var(--dim); line-height: 1.35; }
+  .snd .btns { display: flex; gap: 5px; flex-wrap: wrap; }
+  .snd .btns button { padding: 4px 9px; font-size: 12px; }
+  .snd .btns button.v { min-width: 30px; font: 11px var(--mono); color: var(--dim); }
+  .badge {
+    font: 10px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase;
+    padding: 3px 5px; border-radius: 3px; border: 1px solid;
+  }
+  .badge.file { color: var(--ok); border-color: #2f4a22; background: #16210f; }
+  .badge.synth { color: var(--cold); border-color: #21384a; background: #0f1721; }
+  .badge.loop { color: var(--hot); border-color: #4a3822; background: #211a0f; }
+
+  #log {
+    font: 11.5px/1.6 var(--mono); color: var(--dim); background: #0a0806;
+    border: 1px solid var(--line); border-radius: 7px; padding: 10px 12px;
+    max-height: 190px; overflow: auto; white-space: pre-wrap;
+  }
+  #bar { height: 5px; background: #201a12; border-radius: 3px; overflow: hidden; margin-top: 8px; }
+  #bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--hot), var(--hot-2)); transition: width .15s; }
+  .hint { color: var(--dim); font-size: 12px; margin: 0 0 10px; }
+  a { color: var(--hot-2); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Doom Town — Audio Bench</h1>
+    <span class="sub">audition every sound the game can make · <span id="hdr">not started</span></span>
+  </header>
+
+  <div class="panel">
+    <h2>Transport</h2>
+    <div class="row">
+      <button id="init" class="primary">Start audio engine</button>
+      <button id="stopAll" disabled>Stop everything</button>
+      <button id="panic" disabled>Stop loops + music</button>
+      <label class="sl">master <input id="vol" type="range" min="0" max="2" step="0.01" value="1"><b id="volv">1.00</b></label>
+      <label class="sl">sfx <input id="bsfx" type="range" min="0" max="1.5" step="0.01" value="0.9"><b id="bsfxv">0.90</b></label>
+      <label class="sl">ui <input id="bui" type="range" min="0" max="1.5" step="0.01" value="0.72"><b id="buiv">0.72</b></label>
+      <label class="sl">music <input id="bmus" type="range" min="0" max="1.5" step="0.01" value="0.62"><b id="bmusv">0.62</b></label>
+      <label class="sl">ambient <input id="bamb" type="range" min="0" max="1.5" step="0.01" value="0.5"><b id="bambv">0.50</b></label>
+    </div>
+    <div class="row">
+      <input id="find" type="search" placeholder="filter by name or source…" />
+      <label class="sl"><input id="pos" type="checkbox" /> play in 3D (8 m to the right)</label>
+      <button id="duck">Test duck (0.6 / 2 s)</button>
+    </div>
+    <div id="bar"><i></i></div>
+  </div>
+
+  <div class="panel">
+    <h2>The round stingers <span class="count">— the ones that used to screech</span></h2>
+    <p class="hint">Each of these is an ElevenLabs sting layered with real pipe organ, tubular bell, gong
+      and timpani samples, then low-passed so nothing sits above ~4&nbsp;kHz. Play them a few times in a
+      row: they should feel like dread, never like a shriek.</p>
+    <div class="grid" id="g_stinger"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Announcer <span class="count">— audio.announce(text)</span></h2>
+    <p class="hint">Squelch, carrier, the line, squelch. These go through the same path the game uses.</p>
+    <div class="row" id="voxrow"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Music &amp; loops</h2>
+    <div class="row" id="musicrow"></div>
+    <div class="grid" id="g_loop" style="margin-top:11px"></div>
+  </div>
+
+  <div class="panel"><h2>Weapons <span class="count" id="c_gun"></span></h2><div class="grid" id="g_gun"></div></div>
+  <div class="panel"><h2>Handling &amp; reloads <span class="count" id="c_handling"></span></h2><div class="grid" id="g_handling"></div></div>
+  <div class="panel"><h2>Creatures &amp; the player <span class="count" id="c_voice"></span></h2><div class="grid" id="g_voice"></div></div>
+  <div class="panel"><h2>Impacts <span class="count" id="c_impact"></span></h2><div class="grid" id="g_impact"></div></div>
+  <div class="panel"><h2>World &amp; foley <span class="count" id="c_foley"></span></h2><div class="grid" id="g_foley"></div></div>
+  <div class="panel"><h2>Power-ups &amp; machines <span class="count" id="c_world"></span></h2><div class="grid" id="g_world"></div></div>
+  <div class="panel"><h2>Interface <span class="count" id="c_ui"></span></h2><div class="grid" id="g_ui"></div></div>
+  <div class="panel"><h2>Aliases <span class="count">— old names that still resolve</span></h2><div class="grid" id="g_alias"></div></div>
+
+  <div class="panel">
+    <h2>Log</h2>
+    <div id="log"></div>
+  </div>
+</div>
+
+<script type="module">
+import { audio } from '/src/audio/audio.js';
+
+const $ = (s) => document.querySelector(s);
+const logEl = $('#log');
+function log(msg) {
+  logEl.textContent += msg + '\n';
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+/* ---------------------------------------------------------------- state -- */
+
+let manifest = { sounds: {}, tracks: {} };
+let started = false;
+const loops = new Map();     // name -> handle
+let musicHandle = null;
+const cards = [];            // { el, name, text }
+
+/* Which panel a sound belongs in. The first pattern that matches wins, so the
+ * order is the grouping: it is deliberately the order a player meets them. */
+const GROUPS = [
+  ['stinger', /^(round_end|round_start|hellround_start|game_over)$/],
+  ['gun', /^(gun_|raygun_impact|explosion|nuke_blast|dry_fire)/],
+  ['handling', /^(reload_|bolt_|slide_|pump_|weapon_|ads_|shell_drop|low_ammo|grenade_)/],
+  ['voice', /^(zombie_(groan|scream|attack|death|rise|gib)|hellhound_(growl|bite|death)|player_|jump_grunt|sprint_breath|perk_burp|vox_)/],
+  ['impact', /^(impact_|flesh_hit|headshot|knife_|board_slam|zombie_bodyfall)/],
+  ['foley', /^(footstep_|zombie_footstep|hellhound_footstep|land_|board_|door_|box_open|box_close|perk_drink)/],
+  ['world', /^(power_on|pap_upgrade|powerup_|hellhound_spawn|box_teddy|box_music|max_ammo|insta_kill|double_points|carpenter|fire_sale|purchase|perk_jingle_)/],
+  ['ui', /^(ui_|hitmarker|radio_)/],
+];
+function groupOf(name, info) {
+  if (info && info.loop) return 'loop';
+  for (const [g, re] of GROUPS) if (re.test(name)) return g;
+  return 'world';
+}
+
+/* ----------------------------------------------------------------- init -- */
+
+$('#init').onclick = async () => {
+  if (started) return;
+  $('#init').disabled = true;
+  $('#init').textContent = 'loading…';
+  const t0 = performance.now();
+
+  try {
+    const res = await fetch('/audio/manifest.json');
+    manifest = await res.json();
+    log(`manifest: ${Object.keys(manifest.sounds).length} sounds, `
+      + `${Object.values(manifest.sounds).reduce((a, s) => a + s.files.length, 0)} files`);
+  } catch (e) {
+    log('! no manifest: ' + e.message + ' — everything will be synthesised');
+  }
+
+  await audio.init({
+    onProgress(frac, label) {
+      $('#bar i').style.width = Math.round(frac * 100) + '%';
+      $('#hdr').textContent = label + ' ' + Math.round(frac * 100) + '%';
+    },
+  });
+
+  const ms = Math.round(performance.now() - t0);
+  started = true;
+  $('#init').textContent = 'running';
+  $('#stopAll').disabled = $('#panic').disabled = false;
+  $('#hdr').textContent = `${audio.fileNames.size} names from files, ${ms} ms`;
+  log(`init() in ${ms} ms (engine ${audio.initMs} ms); `
+    + `${audio.filesLoaded} sample files loaded, ${audio.filesFailed} failed`);
+  build();
+};
+
+/* --------------------------------------------------------------- render -- */
+
+function card(name, info) {
+  const el = document.createElement('div');
+  el.className = 'snd';
+  const variants = info ? info.variants : 1;
+  const src = (info && info.src) || 'synthesised';
+  const fromFile = !!(info && info.fromFile);
+
+  const top = document.createElement('div');
+  top.className = 'top';
+  top.innerHTML = `<span class="nm">${name}</span>`
+    + `<span class="badge ${fromFile ? 'file' : 'synth'}">${fromFile ? 'file' : 'synth'}</span>`
+    + (info && info.loop ? '<span class="badge loop">loop</span>' : '')
+    + `<span class="meta">${info && info.dur ? info.dur.toFixed(2) + 's' : ''}`
+    + (variants > 1 ? ` ·${variants}v` : '') + '</span>';
+  el.appendChild(top);
+
+  const s = document.createElement('div');
+  s.className = 'src';
+  s.textContent = src;
+  el.appendChild(s);
+
+  const btns = document.createElement('div');
+  btns.className = 'btns';
+  if (info && info.loop) {
+    const b = document.createElement('button');
+    b.textContent = 'loop';
+    b.onclick = () => toggleLoop(name, b);
+    btns.appendChild(b);
+  } else {
+    const b = document.createElement('button');
+    b.textContent = '▶ play';
+    b.onclick = () => fire(name);
+    btns.appendChild(b);
+    // one button per variant, so a specific take can be judged on its own
+    for (let i = 0; i < variants && variants > 1; i++) {
+      const v = document.createElement('button');
+      v.className = 'v';
+      v.textContent = String(i + 1);
+      v.title = 'variant ' + (i + 1) + ' (played until it comes up)';
+      v.onclick = () => fireVariant(name, i);
+      btns.appendChild(v);
+    }
+    const x8 = document.createElement('button');
+    x8.className = 'v';
+    x8.textContent = '×8';
+    x8.title = 'eight in a row — listen for machine-gun repetition';
+    x8.onclick = () => { for (let i = 0; i < 8; i++) setTimeout(() => fire(name), i * 190); };
+    btns.appendChild(x8);
+  }
+  el.appendChild(btns);
+  cards.push({ el, name, text: (name + ' ' + src).toLowerCase() });
+  return el;
+}
+
+function fire(name) {
+  if ($('#pos').checked) audio.playAt(name, { x: 8, y: 0, z: 0 });
+  else audio.play(name);
+}
+
+/* The engine picks a variant at random; ask until the wanted one comes up so a
+ * single take can actually be auditioned. */
+function fireVariant(name, i) {
+  const canon = audio._canon(name);
+  const arr = audio.buffers.get(canon);
+  const info = audio.info(name);
+  if (!arr || !arr[i] || !info) { fire(name); return; }
+  // Reach past the engine's random picker so one specific take can be judged.
+  // Everything else — bus, gain, panner, sends, voice caps — is the real path.
+  const rec = { gain: info.gain, bus: info.bus };
+  audio._spawn(canon, rec, arr[i], {},
+    $('#pos').checked ? { x: 8, y: 0, z: 0 } : null, false);
+}
+
+function toggleLoop(name, btn) {
+  const h = loops.get(name);
+  if (h) { h.stop(0.25); loops.delete(name); btn.classList.remove('on'); return; }
+  const nh = audio.loop(name, $('#pos').checked ? { position: { x: 8, y: 0, z: 0 } } : {});
+  loops.set(name, nh);
+  btn.classList.add('on');
+}
+
+function build() {
+  const names = audio.listSounds();
+  const aliases = audio.listAliases();
+  const buckets = {
+    stinger: [], gun: [], handling: [], voice: [], impact: [],
+    foley: [], world: [], ui: [], loop: [], alias: [],
+  };
+  for (const n of names) {
+    if (aliases[n]) { buckets.alias.push(n); continue; }
+    const info = audio.info(n);
+    if (!info) continue;
+    buckets[groupOf(n, info)].push(n);
+  }
+  for (const [g, list] of Object.entries(buckets)) {
+    const host = document.getElementById('g_' + g);
+    if (!host) continue;
+    host.innerHTML = '';
+    for (const n of list.sort()) host.appendChild(card(n, audio.info(n)));
+    const c = document.getElementById('c_' + g);
+    if (c) c.textContent = '— ' + list.length;
+  }
+
+  // announcer
+  const vr = $('#voxrow');
+  vr.innerHTML = '';
+  for (const line of ['Max Ammo', 'Insta-Kill', 'Double Points', 'Nuke', 'Carpenter', 'Fire Sale']) {
+    const b = document.createElement('button');
+    b.textContent = '📻 ' + line;
+    b.onclick = () => { audio.announce(line); log('announce("' + line + '")'); };
+    vr.appendChild(b);
+  }
+
+  // music beds
+  const mr = $('#musicrow');
+  mr.innerHTML = '';
+  for (const t of audio.listTracks()) {
+    const b = document.createElement('button');
+    b.textContent = '♪ ' + t;
+    b.onclick = () => {
+      if (musicHandle === t) { audio.stopMusic(1.2); musicHandle = null; refreshMusic(); return; }
+      audio.music(t); musicHandle = t; refreshMusic();
+    };
+    b.dataset.track = t;
+    mr.appendChild(b);
+  }
+  const stop = document.createElement('button');
+  stop.textContent = '■ stop music';
+  stop.onclick = () => { audio.stopMusic(1.2); musicHandle = null; refreshMusic(); };
+  mr.appendChild(stop);
+
+  log(`${names.length} names: ${Object.entries(buckets).map(([g, l]) => g + ' ' + l.length).join(', ')}`);
+  filter();
+}
+
+function refreshMusic() {
+  for (const b of $('#musicrow').querySelectorAll('button[data-track]')) {
+    b.classList.toggle('on', b.dataset.track === musicHandle);
+  }
+}
+
+/* --------------------------------------------------------------- filter -- */
+
+function filter() {
+  const q = $('#find').value.trim().toLowerCase();
+  for (const c of cards) {
+    const hit = !q || c.text.includes(q);
+    c.el.style.display = hit ? '' : 'none';
+    c.el.classList.toggle('hit', !!q && hit);
+  }
+}
+$('#find').oninput = filter;
+
+/* ------------------------------------------------------------ transport -- */
+
+const slider = (id, out, fn) => {
+  const el = $('#' + id);
+  el.oninput = () => { $('#' + out).textContent = Number(el.value).toFixed(2); fn(Number(el.value)); };
+};
+slider('vol', 'volv', (v) => audio.setMasterVolume(v));
+slider('bsfx', 'bsfxv', (v) => audio.setBusVolume('sfx', v));
+slider('bui', 'buiv', (v) => audio.setBusVolume('ui', v));
+slider('bmus', 'bmusv', (v) => audio.setBusVolume('music', v));
+slider('bamb', 'bambv', (v) => audio.setBusVolume('ambient', v));
+
+$('#stopAll').onclick = () => {
+  audio.stopAll(0.08); audio.stopMusic(0.4);
+  loops.clear(); musicHandle = null; refreshMusic();
+  for (const b of document.querySelectorAll('.snd button.on')) b.classList.remove('on');
+};
+$('#panic').onclick = () => {
+  audio.stopLoops(0.25); audio.stopMusic(0.6);
+  loops.clear(); musicHandle = null; refreshMusic();
+  for (const b of document.querySelectorAll('.snd button.on')) b.classList.remove('on');
+};
+$('#duck').onclick = () => { audio.duck(0.6, 2); log('duck(0.6, 2)'); };
+
+// keep the 3D listener at the origin, looking down -Z
+setInterval(() => {
+  if (started) audio.setListener({ position: { x: 0, y: 0, z: 0 } });
+}, 250);
+
+log('press "Start audio engine" (a user gesture is required before Web Audio will run)');
+</script>
+</body>
+</html>
